@@ -33,8 +33,11 @@ class PetsController < ApplicationController
 
   def update
     @pet = Pet.find(params[ :id])
-    @pet.update(params.require(:pet).permit(:name,:age,:description))
-    
+    if @pet.update(params.require(:pet).permit(:name,:age,:description))
     redirect_to @pet
+    else
+      render "edit"
+    end
+    
   end
 end

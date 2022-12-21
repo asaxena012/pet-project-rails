@@ -3,6 +3,19 @@
 
 <h1>Edit pet</h1>
 
+<% if @pet.errors.any? %>
+  <h2>
+    <%= pluralize(@pet.errors.count, "error") %> prohibited
+        this article from being saved:
+  </h2>
+  <ul>
+    <% @pet.errors.full_messages.each do |msg|%>
+      <li><%= msg %></li>
+    <% end %>
+    
+  </ul>
+<% end %>
+
 <%= form_with model: @pet, url: pet_path, local: true do |form| %>
   <p>
     <%= form.label :age %><br>
