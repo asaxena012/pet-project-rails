@@ -8,6 +8,7 @@ class PetsController < ApplicationController
   end
 
   def edit
+    @pet = Pet.find(params[ :id])
   end
 
   def new
@@ -24,5 +25,12 @@ class PetsController < ApplicationController
     @pet.destroy
 
     redirect_to pets_path
+  end
+
+  def update
+    @pet = Pet.find(params[ :id])
+    @pet.update(params.require(:pet).permit(:name,:age,:description))
+    
+    redirect_to @pet
   end
 end
