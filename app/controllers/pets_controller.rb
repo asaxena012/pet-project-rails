@@ -12,12 +12,16 @@ class PetsController < ApplicationController
   end
 
   def new
+    @pet = Pet.new
   end
 
   def create
     @pet = Pet.new(params.require(:pet).permit(:name,:age,:description))
-    @pet.save
-    redirect_to @pet
+    if @pet.save
+      redirect_to @pet
+    else
+      render "new"
+    end
   end
 
   def destroy
