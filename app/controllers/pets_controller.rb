@@ -16,7 +16,7 @@ class PetsController < ApplicationController
   end
 
   def create
-    @pet = Pet.new(params.require(:pet).permit(:name,:age,:description))
+    @pet = Pet.new(pet_params)
     if @pet.save
       redirect_to @pet
     else
@@ -33,11 +33,16 @@ class PetsController < ApplicationController
 
   def update
     @pet = Pet.find(params[ :id])
-    if @pet.update(params.require(:pet).permit(:name,:age,:description))
+    if @pet.update(pet_params)
     redirect_to @pet
     else
       render "edit"
     end
     
   end
+
+  private
+    def pet_params
+      params.require(:pet).permit(:name,:age,:description)
+    end
 end
